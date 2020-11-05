@@ -46,9 +46,10 @@ npm i next-plugin-antd-less
 ```js
 // next.config.js
 const withAntdLess = require('next-plugin-antd-less');
+const path = require('path');
 
 module.exports = withAntdLess({
-  lessVarsFilePath: './src/styles/variables.less',
+  lessVarsFilePath: path.resolve(__dirname, "./styles/variables.less"),
   // cssLoaderOptionsModules: {},
   //
   // Other Config Here...

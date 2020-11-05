@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign, consistent-return, no-restricted-syntax */
 const clone = require('clone');
 const fs = require('fs');
-const lessToJS = require('less-vars-to-js');
 
 // fix: prevents error when .less files are required by node
 if (typeof require !== 'undefined') require.extensions['.less'] = () => {};
@@ -32,7 +31,9 @@ module.exports = (
   },
 ) => {
   const modifyVars = nextConfig.lessVarsFilePath
-    ? lessToJS(fs.readFileSync(nextConfig.lessVarsFilePath, 'utf8'))
+    ? {
+        hack: `true;@import "${require.resolve(nextConfig.lessVarsFilePath)}";`,
+      }
     : undefined;
 
   return {
